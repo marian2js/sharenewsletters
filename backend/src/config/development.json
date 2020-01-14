@@ -1,0 +1,10 @@
+{
+  "port": 8000,
+  "endpoint": "http://localhost:8000",
+  "appName": "ShareNewsletters.com",
+  "mongoDB": {
+    "uri": "mongodb://localhost:27017",
+    "dbName": "sharenewsletters",
+    "options": {}
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "entityName": "comments",
+  "collectionName": "comments",
+  "permissions": {
+    "get": "anyone",
+    "create": "user",
+    "update": "own",
+    "delete": "own"
+  },
+  "attributes": {
+    "user": {
+      "type": "user",
+      "required": true,
+      "readonly": true,
+      "permissions": {
+        "create": "system"
+      }
+    },
+    "post": {
+      "type": "ref",
+      "entity": "posts",
+      "readonly": true,
+      "required": true,
+      "index": true
+    },
+    "body": {
+      "type": "string",
+      "required": true
+    },
+    "upVotes": {
+      "type": "number",
+      "default": 0,
+      "permissions": {
+        "create": "system",
+        "update": "system"
+      }
+    },
+    "downVotes": {
+      "type": "number",
+      "default": 0,
+      "permissions": {
+        "create": "system",
+        "update": "system"
+      }
+    }
+  },
+  "joinAttributes": {
+    "userVote": {
+      "type": "findOne",
+      "entity": "commentVotes",
+      "query": {
+        "user": "{user._id}",
+        "comment": "{this._id}"
+      }
+    }
+  },
+  "afterCreate": [
+    {
+      "action": "increment",
+      "value": 1,
+      "target": "this.post.numberOfComments"
+    },
+    {
+      "action": "increment",
+      "value": 1,
+      "target": "this.user.numberOfComments"
+    }
+  ],
+  "afterDelete": [
+    {
+      "action": "increment",
+      "value": -1,
+      "target": "this.post.numberOfComments"
+    },
+    {
+      "action": "increment",
+      "value": -1,
+      "target": "this.user.numberOfComments"
+    }
+  ]
+}

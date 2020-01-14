@@ -1,0 +1,87 @@
+{
+  "entityName": "posts",
+  "collectionName": "posts",
+  "apiKey": "slug",
+  "permissions": {
+    "get": "anyone",
+    "create": "user",
+    "update": "own",
+    "delete": "own"
+  },
+  "attributes": {
+    "user": {
+      "type": "user",
+      "required": true,
+      "index": true,
+      "readonly": true,
+      "permissions": {
+        "create": "system"
+      }
+    },
+    "slug": {
+      "type": "slug",
+      "required": true,
+      "unique": true,
+      "readonly": true,
+      "setFrom": "title",
+      "suffix": {
+        "type": "random",
+        "chars": 8
+      }
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "numberOfComments": {
+      "type": "number",
+      "default": 0,
+      "permissions": {
+        "create": "system",
+        "update": "system"
+      }
+    },
+    "votes": {
+      "type": "number",
+      "default": 0,
+      "permissions": {
+        "create": "system",
+        "update": "system"
+      }
+    }
+  },
+  "joinAttributes": {
+    "userVote": {
+      "type": "findOne",
+      "entity": "postVotes",
+      "query": {
+        "user": "{user._id}",
+        "post": "{this._id}"
+      }
+    }
+  },
+  "afterCreate": [
+    {
+      "action": "increment",
+      "value": 1,
+      "target": "this.user.numberOfPosts"
+    }
+  ],
+  "afterDelete": [
+    {
+      "action": "increment",
+      "value": -1,
+      "target": "this.user.numberOfPosts"
+    }
+  ]
+}

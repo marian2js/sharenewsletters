@@ -1,0 +1,34 @@
+{
+  "entityName": "users",
+  "collectionName": "users",
+  "permissions": {
+    "get": "anyone",
+    "create": "anyone",
+    "update": "own",
+    "delete": "admin"
+  },
+  "attributes": {
+    "fullName": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "numberOfPosts": {
+      "type": "number",
+      "default": 0,
+      "permissions": {
+        "create": "system",
+        "update": "system"
+      }
+    },
+    "numberOfComments": {
+      "type": "number",
+      "default": 0,
+      "permissions": {
+        "create": "system",
+        "update": "system"
+      }
+    }
+  }
+}

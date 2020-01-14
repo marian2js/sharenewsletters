@@ -1,0 +1,41 @@
+{
+  "name": "sharenewsletters",
+  "version": "0.1.0",
+  "description": "ShareNewsletters.com",
+  "author": "marian2js <admin@sharenewsletters.com>",
+  "homepage": "https://sharenewsletters.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marian2js/sharenewsletters"
+  },
+  "private": true,
+  "scripts": {
+    "start": "npm run watch",
+    "start:production": "npm run build && forever dist/server.js",
+    "build": "tsc",
+    "watch": "tsc-watch --onSuccess \"node ./dist/server.js\""
+  },
+  "bugs": {
+    "url": "https://github.com/marian2js/sharenewsletters/issues"
+  },
+  "dependencies": {
+    "@commun/core": "^0.1.0",
+    "@commun/emails": "^0.1.0",
+    "@commun/users": "^0.1.0",
+    "aws-sdk": "^2.602.0",
+    "dotenv": "^8.2.0",
+    "nodemailer": "^6.4.2"
+  },
+  "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.2",
+    "@types/jest": "^24.0.25",
+    "@types/jsonwebtoken": "^8.3.6",
+    "@types/mongodb": "^3.3.14",
+    "@types/nodemailer": "^6.4.0",
+    "tsc-watch": "^4.0.0",
+    "typescript": "^3.7.4"
+  }
+}

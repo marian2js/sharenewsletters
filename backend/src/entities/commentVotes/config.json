@@ -1,0 +1,87 @@
+{
+  "entityName": "commentVotes",
+  "collectionName": "commentVotes",
+  "permissions": {
+    "get": "anyone",
+    "create": "user",
+    "update": "system",
+    "delete": "own"
+  },
+  "attributes": {
+    "user": {
+      "type": "user",
+      "required": true,
+      "readonly": true,
+      "permissions": {
+        "create": "system"
+      }
+    },
+    "comment": {
+      "type": "ref",
+      "entity": "comments",
+      "readonly": true,
+      "required": true
+    },
+    "value": {
+      "type": "enum",
+      "required": true,
+      "values": [
+        1,
+        -1
+      ]
+    }
+  },
+  "afterCreate": [
+    {
+      "action": "increment",
+      "value": 1,
+      "target": "this.comment.upVotes",
+      "condition": {
+        "left": "{this.value}",
+        "right": 1,
+        "comparator": "="
+      }
+    },
+    {
+      "action": "increment",
+      "value": 1,
+      "target": "this.comment.downVotes",
+      "condition": {
+        "left": "{this.value}",
+        "right": -1,
+        "comparator": "="
+      }
+    }
+  ],
+  "afterDelete": [
+    {
+      "action": "increment",
+      "value": -1,
+      "target": "this.comment.upVotes",
+      "condition": {
+        "left": "{this.value}",
+        "right": 1,
+        "comparator": "="
+      }
+    },
+    {
+      "action": "increment",
+      "value": -1,
+      "target": "this.comment.downVotes",
+      "condition": {
+        "left": "{this.value}",
+        "right": -1,
+        "comparator": "="
+      }
+    }
+  ],
+  "indexes": [
+    {
+      "keys": {
+        "comment": 1,
+        "user": 1
+      },
+      "unique": true
+    }
+  ]
+}

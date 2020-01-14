@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  sn-mongo:
+    container_name: sn-mongo
+    image: mongo
+    restart: always
+    env_file:
+      - ./backend/.env
+    volumes:
+      - mongodb:/data/db
+      - mongoconfig:/data/configdb
+    networks:
+      - sharenewsletters
+
+  sn-nginx:
+    container_name: sn-nginx
+    image: nginx
+    volumes:
+      - "./config/nginx/${NGINX_CONFIG_FILE}:/etc/nginx/conf.d/${NGINX_CONFIG_FILE}"
+    networks:
+      - sharenewsletters
+    ports:
+      - 80:80
+    links:
+      - sn-frontend
+      - sn-service
+    depends_on:
+      - sn-frontend
+      - sn-service
+
+  sn-service:
+    container_name: sn-service
+    build: ./backend
+    volumes:
+      - ./backend/src:/app/sharenewsletters-service/src
+    networks:
+      - sharenewsletters
+    env_file:
+      - ./backend/.env
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+    links:
+      - sn-mongo
+    depends_on:
+      - sn-mongo
+
+  sn-frontend:
+    container_name: sn-frontend
+    build: ./frontend
+    networks:
+      - sharenewsletters
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    links:
+      - sn-service
+    depends_on:
+      - sn-service
+
+volumes:
+  mongodb:
+  mongoconfig:
+
+networks:
+  sharenewsletters:
