@@ -5,7 +5,7 @@
     "get": "anyone",
     "create": "anyone",
     "update": "own",
-    "delete": "admin"
+    "delete": "own"
   },
   "attributes": {
     "fullName": {

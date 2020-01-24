@@ -1,7 +1,7 @@
 {
-  "port": 8000,
-  "endpoint": "https://sharenewsletters.com",
   "appName": "ShareNewsletters.com",
+  "endpoint": "https://sharenewsletters.com",
+  "port": 8000,
   "mongoDB": {
     "uri": "mongodb://sn-mongo:27017",
     "dbName": "sharenewsletters",

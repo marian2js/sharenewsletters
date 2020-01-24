@@ -54,28 +54,30 @@
       }
     }
   },
-  "afterCreate": [
-    {
-      "action": "increment",
-      "value": 1,
-      "target": "this.post.numberOfComments"
-    },
-    {
-      "action": "increment",
-      "value": 1,
-      "target": "this.user.numberOfComments"
-    }
-  ],
-  "afterDelete": [
-    {
-      "action": "increment",
-      "value": -1,
-      "target": "this.post.numberOfComments"
-    },
-    {
-      "action": "increment",
-      "value": -1,
-      "target": "this.user.numberOfComments"
-    }
-  ]
+  "hooks": {
+    "afterCreate": [
+      {
+        "action": "increment",
+        "value": 1,
+        "target": "this.post.numberOfComments"
+      },
+      {
+        "action": "increment",
+        "value": 1,
+        "target": "this.user.numberOfComments"
+      }
+    ],
+    "afterDelete": [
+      {
+        "action": "increment",
+        "value": -1,
+        "target": "this.post.numberOfComments"
+      },
+      {
+        "action": "increment",
+        "value": -1,
+        "target": "this.user.numberOfComments"
+      }
+    ]
+  }
 }

@@ -70,18 +70,21 @@
       }
     }
   },
-  "afterCreate": [
-    {
-      "action": "increment",
-      "value": 1,
-      "target": "this.user.numberOfPosts"
-    }
-  ],
-  "afterDelete": [
-    {
-      "action": "increment",
-      "value": -1,
-      "target": "this.user.numberOfPosts"
-    }
-  ]
+  "hooks": {
+    "afterCreate": [
+      {
+        "action": "increment",
+        "value": 1,
+        "target": "this.user.numberOfPosts"
+      }
+    ],
+    "afterDelete": [
+      {
+        "action": "increment",
+        "value": -1,
+        "target": "this.user.numberOfPosts"
+      }
+    ],
+    "afterUpdate": []
+  }
 }

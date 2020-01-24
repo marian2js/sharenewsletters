@@ -31,20 +31,22 @@
       ]
     }
   },
-  "afterCreate": [
-    {
-      "action": "increment",
-      "value": "{this.value}",
-      "target": "this.post.votes"
-    }
-  ],
-  "afterDelete": [
-    {
-      "action": "increment",
-      "value": "{-this.value}",
-      "target": "this.post.votes"
-    }
-  ],
+  "hooks": {
+    "afterCreate": [
+      {
+        "action": "increment",
+        "value": "{this.value}",
+        "target": "this.post.votes"
+      }
+    ],
+    "afterDelete": [
+      {
+        "action": "increment",
+        "value": "{-this.value}",
+        "target": "this.post.votes"
+      }
+    ]
+  },
   "indexes": [
     {
       "keys": {

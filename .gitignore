@@ -8,3 +8,5 @@ node_modules
 Thumbs.db
 dist
 frontend
+*.pub
+*.pem

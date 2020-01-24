@@ -31,50 +31,52 @@
       ]
     }
   },
-  "afterCreate": [
-    {
-      "action": "increment",
-      "value": 1,
-      "target": "this.comment.upVotes",
-      "condition": {
-        "left": "{this.value}",
-        "right": 1,
-        "comparator": "="
+  "hooks": {
+    "afterCreate": [
+      {
+        "action": "increment",
+        "value": 1,
+        "target": "this.comment.upVotes",
+        "condition": {
+          "left": "{this.value}",
+          "right": 1,
+          "comparator": "="
+        }
+      },
+      {
+        "action": "increment",
+        "value": 1,
+        "target": "this.comment.downVotes",
+        "condition": {
+          "left": "{this.value}",
+          "right": -1,
+          "comparator": "="
+        }
       }
-    },
-    {
-      "action": "increment",
-      "value": 1,
-      "target": "this.comment.downVotes",
-      "condition": {
-        "left": "{this.value}",
-        "right": -1,
-        "comparator": "="
+    ],
+    "afterDelete": [
+      {
+        "action": "increment",
+        "value": -1,
+        "target": "this.comment.upVotes",
+        "condition": {
+          "left": "{this.value}",
+          "right": 1,
+          "comparator": "="
+        }
+      },
+      {
+        "action": "increment",
+        "value": -1,
+        "target": "this.comment.downVotes",
+        "condition": {
+          "left": "{this.value}",
+          "right": -1,
+          "comparator": "="
+        }
       }
-    }
-  ],
-  "afterDelete": [
-    {
-      "action": "increment",
-      "value": -1,
-      "target": "this.comment.upVotes",
-      "condition": {
-        "left": "{this.value}",
-        "right": 1,
-        "comparator": "="
-      }
-    },
-    {
-      "action": "increment",
-      "value": -1,
-      "target": "this.comment.downVotes",
-      "condition": {
-        "left": "{this.value}",
-        "right": -1,
-        "comparator": "="
-      }
-    }
-  ],
+    ]
+  },
   "indexes": [
     {
       "keys": {
@@ -83,5 +85,6 @@
       },
       "unique": true
     }
-  ]
+  ],
+  "apiKey": "_id"
 }
