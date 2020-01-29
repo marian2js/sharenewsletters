@@ -1,4 +1,19 @@
 {
+  "externalAuth": {
+    "callbackUrl": "https://sharenewsletters.com/complete-auth",
+    "autoGenerateUsername": false,
+    "providers": {
+      "google": {
+        "enabled": true
+      },
+      "facebook": {
+        "enabled": true
+      },
+      "github": {
+        "enabled": true
+      }
+    }
+  },
   "accessToken": {
     "expiresIn": "3 days",
     "algorithm": "RS256"
