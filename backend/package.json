@@ -20,11 +20,12 @@
     "url": "https://github.com/marian2js/sharenewsletters/issues"
   },
   "dependencies": {
-    "@commun/admin": "^0.2.5",
-    "@commun/core": "^0.2.5",
-    "@commun/dashboard": "^0.2.5",
-    "@commun/emails": "^0.2.5",
-    "@commun/users": "^0.2.5",
+    "@commun/admin": "^0.3.6",
+    "@commun/core": "^0.3.6",
+    "@commun/dashboard": "^0.3.7",
+    "@commun/emails": "^0.3.6",
+    "@commun/graphql": "^0.3.6",
+    "@commun/users": "^0.3.6",
     "aws-sdk": "^2.602.0",
     "dotenv": "^8.2.0",
     "nodemailer": "^6.4.2"

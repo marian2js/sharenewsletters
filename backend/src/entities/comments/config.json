@@ -49,8 +49,8 @@
       "type": "findOne",
       "entity": "commentVotes",
       "query": {
-        "user": "{user._id}",
-        "comment": "{this._id}"
+        "user": "{user.id}",
+        "comment": "{this.id}"
       }
     }
   },

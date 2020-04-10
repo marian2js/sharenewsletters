@@ -1,0 +1,809 @@
+type AccessToken {
+  accessToken: String!
+  accessTokenExpiration: Float
+}
+
+"""A single Comment."""
+type Comment implements Node {
+  id: ID!
+  user: User!
+  post: Post!
+  body: String!
+  upVotes: Float
+  downVotes: Float
+  createdAt: String
+  updatedAt: String
+  userVote: CommentVote
+}
+
+input CommentBodyFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+type CommentConnection {
+  nodes: [Comment]!
+  pageInfo: PageInfo
+}
+
+input CommentCreatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentDownVotesFilterInput {
+  value: Float!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentFilterInput {
+  id: CommentIdFilterInput
+  user: CommentUserFilterInput
+  post: CommentPostFilterInput
+  body: CommentBodyFilterInput
+  upVotes: CommentUpVotesFilterInput
+  downVotes: CommentDownVotesFilterInput
+  createdAt: CommentCreatedAtFilterInput
+  updatedAt: CommentUpdatedAtFilterInput
+  or: [CommentFilterInput]
+  and: [CommentFilterInput]
+}
+
+input CommentIdFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentOrderByInput {
+  id: OrderByDirection
+  user: OrderByDirection
+  post: OrderByDirection
+  body: OrderByDirection
+  upVotes: OrderByDirection
+  downVotes: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+input CommentPostFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentUpdatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentUpVotesFilterInput {
+  value: Float!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentUserFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+"""A single CommentVote."""
+type CommentVote implements Node {
+  id: ID!
+  user: User!
+  comment: Comment!
+  value: CommentVoteValueEnum!
+  createdAt: String
+  updatedAt: String
+}
+
+input CommentVoteCommentFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+type CommentVoteConnection {
+  nodes: [CommentVote]!
+  pageInfo: PageInfo
+}
+
+input CommentVoteCreatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentVoteFilterInput {
+  id: CommentVoteIdFilterInput
+  user: CommentVoteUserFilterInput
+  comment: CommentVoteCommentFilterInput
+  value: CommentVoteValueFilterInput
+  createdAt: CommentVoteCreatedAtFilterInput
+  updatedAt: CommentVoteUpdatedAtFilterInput
+  or: [CommentVoteFilterInput]
+  and: [CommentVoteFilterInput]
+}
+
+input CommentVoteIdFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentVoteOrderByInput {
+  id: OrderByDirection
+  user: OrderByDirection
+  comment: OrderByDirection
+  value: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+input CommentVoteUpdatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input CommentVoteUserFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+enum CommentVoteValueEnum {
+  POSITIVE_1
+  NEGATIVE_1
+}
+
+input CommentVoteValueFilterInput {
+  value: CommentVoteValueEnum!
+  comparator: FilterComparatorSymbol
+}
+
+type CompleteSocialAuthenticationPayload {
+  tokens: Tokens
+  user: User!
+}
+
+input CreateCommentInput {
+  post: ID!
+  body: String!
+}
+
+type CreateCommentPayload {
+  comment: Comment
+}
+
+input CreateCommentVoteInput {
+  comment: ID!
+  value: CommentVoteValueEnum!
+}
+
+type CreateCommentVotePayload {
+  commentVote: CommentVote
+}
+
+input CreatePostInput {
+  title: String!
+  url: String!
+  description: String!
+}
+
+type CreatePostPayload {
+  post: Post
+}
+
+input CreatePostVoteInput {
+  post: ID!
+  value: PostVoteValueEnum!
+}
+
+type CreatePostVotePayload {
+  postVote: PostVote
+}
+
+input CreateTestItemInput {
+  asd: String
+}
+
+type CreateTestItemPayload {
+  testItem: TestItem
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String
+  verified: Boolean
+  fullName: String
+  website: String
+}
+
+type CreateUserPayload {
+  user: User
+}
+
+input DeleteCommentInput {
+  id: ID!
+}
+
+type DeleteCommentPayload {
+  result: Boolean!
+}
+
+input DeleteCommentVoteInput {
+  id: ID!
+}
+
+type DeleteCommentVotePayload {
+  result: Boolean!
+}
+
+input DeletePostInput {
+  slug: String!
+}
+
+type DeletePostPayload {
+  result: Boolean!
+}
+
+input DeletePostVoteInput {
+  id: ID!
+}
+
+type DeletePostVotePayload {
+  result: Boolean!
+}
+
+input DeleteTestItemInput {
+  id: ID!
+}
+
+type DeleteTestItemPayload {
+  result: Boolean!
+}
+
+input DeleteUserInput {
+  username: String!
+}
+
+type DeleteUserPayload {
+  result: Boolean!
+}
+
+"""Specify how 2 values are going to be compared."""
+enum FilterComparatorSymbol {
+  EQUAL
+  NOT_EQUAL
+  GREATER_THAN
+  GREATER_THAN_OR_EQUAL
+  LESS_THAN
+  LESS_THAN_OR_EQUAL
+}
+
+type LoginPayload {
+  tokens: Tokens
+  user: User!
+}
+
+type LogoutPayload {
+  result: Boolean
+}
+
+"""The root query for implementing GraphQL mutations."""
+type Mutation {
+  """Create a User."""
+  createUser(input: CreateUserInput): CreateUserPayload
+
+  """Update a User."""
+  updateUser(input: UpdateUserInput): UpdateUserPayload
+
+  """Delete a User."""
+  deleteUser(input: DeleteUserInput): DeleteUserPayload
+
+  """Login using username/email and password."""
+  login(username: String!, password: String!): LoginPayload
+
+  """Logout the current user."""
+  logout: LogoutPayload
+
+  """Verify an email using the verification code."""
+  verifyEmail(username: String!, code: String!): VerifyPayload
+
+  """Send an email with a link for resetting the password."""
+  sendResetPasswordEmail(username: String!): SendResetPasswordEmailPayload
+
+  """Reset a password using a verification code."""
+  resetPassword(username: String!, password: String!, code: String!): ResetPasswordPayload
+
+  """Reset a password using a verification code."""
+  completeSocialAuthentication(provider: String!, code: String!, username: String): CompleteSocialAuthenticationPayload
+
+  """Create a CommentVote."""
+  createCommentVote(input: CreateCommentVoteInput): CreateCommentVotePayload
+
+  """Update a CommentVote."""
+  updateCommentVote(input: UpdateCommentVoteInput): UpdateCommentVotePayload
+
+  """Delete a CommentVote."""
+  deleteCommentVote(input: DeleteCommentVoteInput): DeleteCommentVotePayload
+
+  """Create a Comment."""
+  createComment(input: CreateCommentInput): CreateCommentPayload
+
+  """Update a Comment."""
+  updateComment(input: UpdateCommentInput): UpdateCommentPayload
+
+  """Delete a Comment."""
+  deleteComment(input: DeleteCommentInput): DeleteCommentPayload
+
+  """Create a PostVote."""
+  createPostVote(input: CreatePostVoteInput): CreatePostVotePayload
+
+  """Update a PostVote."""
+  updatePostVote(input: UpdatePostVoteInput): UpdatePostVotePayload
+
+  """Delete a PostVote."""
+  deletePostVote(input: DeletePostVoteInput): DeletePostVotePayload
+
+  """Create a Post."""
+  createPost(input: CreatePostInput): CreatePostPayload
+
+  """Update a Post."""
+  updatePost(input: UpdatePostInput): UpdatePostPayload
+
+  """Delete a Post."""
+  deletePost(input: DeletePostInput): DeletePostPayload
+
+  """Create a TestItem."""
+  createTestItem(input: CreateTestItemInput): CreateTestItemPayload
+
+  """Update a TestItem."""
+  updateTestItem(input: UpdateTestItemInput): UpdateTestItemPayload
+
+  """Delete a TestItem."""
+  deleteTestItem(input: DeleteTestItemInput): DeleteTestItemPayload
+}
+
+"""An object with an ID."""
+interface Node {
+  id: ID!
+}
+
+"""Specify the direction on which the items are going to be returned."""
+enum OrderByDirection {
+  DESC
+  ASC
+}
+
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean
+  hasNextPage: Boolean
+}
+
+"""A single Post."""
+type Post implements Node {
+  slug: String!
+  user: User!
+  title: String!
+  url: String!
+  description: String!
+  numberOfComments: Float
+  votes: Float
+  id: ID!
+  createdAt: String
+  updatedAt: String
+  userVote: PostVote
+}
+
+type PostConnection {
+  nodes: [Post]!
+  pageInfo: PageInfo
+}
+
+input PostCreatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input PostDescriptionFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input PostFilterInput {
+  slug: PostSlugFilterInput
+  user: PostUserFilterInput
+  title: PostTitleFilterInput
+  url: PostUrlFilterInput
+  description: PostDescriptionFilterInput
+  numberOfComments: PostNumberOfCommentsFilterInput
+  votes: PostVotesFilterInput
+  id: PostIdFilterInput
+  createdAt: PostCreatedAtFilterInput
+  updatedAt: PostUpdatedAtFilterInput
+  or: [PostFilterInput]
+  and: [PostFilterInput]
+}
+
+input PostIdFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+input PostNumberOfCommentsFilterInput {
+  value: Float!
+  comparator: FilterComparatorSymbol
+}
+
+input PostOrderByInput {
+  slug: OrderByDirection
+  user: OrderByDirection
+  title: OrderByDirection
+  url: OrderByDirection
+  description: OrderByDirection
+  numberOfComments: OrderByDirection
+  votes: OrderByDirection
+  id: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+input PostSlugFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input PostTitleFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input PostUpdatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input PostUrlFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input PostUserFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+"""A single PostVote."""
+type PostVote implements Node {
+  id: ID!
+  user: User!
+  post: Post!
+  value: PostVoteValueEnum!
+  createdAt: String
+  updatedAt: String
+}
+
+type PostVoteConnection {
+  nodes: [PostVote]!
+  pageInfo: PageInfo
+}
+
+input PostVoteCreatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input PostVoteFilterInput {
+  id: PostVoteIdFilterInput
+  user: PostVoteUserFilterInput
+  post: PostVotePostFilterInput
+  value: PostVoteValueFilterInput
+  createdAt: PostVoteCreatedAtFilterInput
+  updatedAt: PostVoteUpdatedAtFilterInput
+  or: [PostVoteFilterInput]
+  and: [PostVoteFilterInput]
+}
+
+input PostVoteIdFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+input PostVoteOrderByInput {
+  id: OrderByDirection
+  user: OrderByDirection
+  post: OrderByDirection
+  value: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+input PostVotePostFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+input PostVotesFilterInput {
+  value: Float!
+  comparator: FilterComparatorSymbol
+}
+
+input PostVoteUpdatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input PostVoteUserFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+enum PostVoteValueEnum {
+  POSITIVE_1
+  NEGATIVE_1
+}
+
+input PostVoteValueFilterInput {
+  value: PostVoteValueEnum!
+  comparator: FilterComparatorSymbol
+}
+
+"""The query root of the GraphQL interface."""
+type Query {
+  """Find Users."""
+  users(first: Int, last: Int, before: String, after: String, filter: UserFilterInput, orderBy: [UserOrderByInput]): UserConnection
+
+  """Find a User by username."""
+  user(username: String!): User!
+
+  """The currently authenticated user."""
+  viewer: User!
+
+  """Get a new access token given a refresh token."""
+  accessToken(username: String!, refreshToken: String!): AccessToken
+
+  """Find CommentVotes."""
+  commentVotes(first: Int, last: Int, before: String, after: String, filter: CommentVoteFilterInput, orderBy: [CommentVoteOrderByInput]): CommentVoteConnection
+
+  """Find a CommentVote by id."""
+  commentVote(id: String!): CommentVote!
+
+  """Find Comments."""
+  comments(first: Int, last: Int, before: String, after: String, filter: CommentFilterInput, orderBy: [CommentOrderByInput]): CommentConnection
+
+  """Find a Comment by id."""
+  comment(id: String!): Comment!
+
+  """Find PostVotes."""
+  postVotes(first: Int, last: Int, before: String, after: String, filter: PostVoteFilterInput, orderBy: [PostVoteOrderByInput]): PostVoteConnection
+
+  """Find a PostVote by id."""
+  postVote(id: String!): PostVote!
+
+  """Find Posts."""
+  posts(first: Int, last: Int, before: String, after: String, filter: PostFilterInput, orderBy: [PostOrderByInput]): PostConnection
+
+  """Find a Post by slug."""
+  post(slug: String!): Post!
+
+  """Find Test."""
+  test(first: Int, last: Int, before: String, after: String, filter: TestItemFilterInput, orderBy: [TestItemOrderByInput]): TestItemConnection
+
+  """Find a TestItem by id."""
+  testItem(id: String!): TestItem!
+}
+
+type ResetPasswordPayload {
+  result: Boolean
+}
+
+type SendResetPasswordEmailPayload {
+  result: Boolean
+}
+
+"""A single TestItem."""
+type TestItem implements Node {
+  id: ID!
+  asd: String
+}
+
+input TestItemAsdFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+type TestItemConnection {
+  nodes: [TestItem]!
+  pageInfo: PageInfo
+}
+
+input TestItemFilterInput {
+  id: TestItemIdFilterInput
+  asd: TestItemAsdFilterInput
+  or: [TestItemFilterInput]
+  and: [TestItemFilterInput]
+}
+
+input TestItemIdFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+input TestItemOrderByInput {
+  id: OrderByDirection
+  asd: OrderByDirection
+}
+
+type Tokens {
+  accessToken: String!
+  accessTokenExpiration: Float
+  refreshToken: String
+}
+
+input UpdateCommentInput {
+  id: ID!
+  user: ID
+  post: ID
+  body: String
+}
+
+type UpdateCommentPayload {
+  comment: Comment
+}
+
+input UpdateCommentVoteInput {
+  id: ID!
+}
+
+type UpdateCommentVotePayload {
+  commentVote: CommentVote
+}
+
+input UpdatePostInput {
+  slug: String!
+  user: ID
+  title: String
+  url: String
+  description: String
+}
+
+type UpdatePostPayload {
+  post: Post
+}
+
+input UpdatePostVoteInput {
+  id: ID!
+}
+
+type UpdatePostVotePayload {
+  postVote: PostVote
+}
+
+input UpdateTestItemInput {
+  id: ID!
+  asd: String
+}
+
+type UpdateTestItemPayload {
+  testItem: TestItem
+}
+
+input UpdateUserInput {
+  username: String!
+  email: String
+  password: String
+  verified: Boolean
+  fullName: String
+  website: String
+}
+
+type UpdateUserPayload {
+  user: User
+}
+
+"""A single User."""
+type User implements Node {
+  username: String!
+  id: ID!
+  email: String
+  verified: Boolean
+  admin: Boolean
+  fullName: String
+  website: String
+  numberOfPosts: Float
+  numberOfComments: Float
+  createdAt: String
+  updatedAt: String
+}
+
+input UserAdminFilterInput {
+  value: Boolean!
+  comparator: FilterComparatorSymbol
+}
+
+type UserConnection {
+  nodes: [User]!
+  pageInfo: PageInfo
+}
+
+input UserCreatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input UserEmailFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input UserFilterInput {
+  username: UserUsernameFilterInput
+  id: UserIdFilterInput
+  email: UserEmailFilterInput
+  verified: UserVerifiedFilterInput
+  admin: UserAdminFilterInput
+  fullName: UserFullNameFilterInput
+  website: UserWebsiteFilterInput
+  numberOfPosts: UserNumberOfPostsFilterInput
+  numberOfComments: UserNumberOfCommentsFilterInput
+  createdAt: UserCreatedAtFilterInput
+  updatedAt: UserUpdatedAtFilterInput
+  or: [UserFilterInput]
+  and: [UserFilterInput]
+}
+
+input UserFullNameFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input UserIdFilterInput {
+  value: ID!
+  comparator: FilterComparatorSymbol
+}
+
+input UserNumberOfCommentsFilterInput {
+  value: Float!
+  comparator: FilterComparatorSymbol
+}
+
+input UserNumberOfPostsFilterInput {
+  value: Float!
+  comparator: FilterComparatorSymbol
+}
+
+input UserOrderByInput {
+  username: OrderByDirection
+  id: OrderByDirection
+  email: OrderByDirection
+  verified: OrderByDirection
+  admin: OrderByDirection
+  fullName: OrderByDirection
+  website: OrderByDirection
+  numberOfPosts: OrderByDirection
+  numberOfComments: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+input UserUpdatedAtFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input UserUsernameFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+input UserVerifiedFilterInput {
+  value: Boolean!
+  comparator: FilterComparatorSymbol
+}
+
+input UserWebsiteFilterInput {
+  value: String!
+  comparator: FilterComparatorSymbol
+}
+
+type VerifyPayload {
+  result: Boolean
+}
